@@ -683,7 +683,7 @@ let state = {
   fxHedge: false,        // se true, copertura cambio attiva (costo ~0.3%/a)
   fxVol: 0.085,          // volatilità storica EUR/USD ~8.5%/a (1999-2024)
   fxHedgeCost: 0.003,    // costo annuo della copertura valutaria ~0.3%
-  capeAdj: true,         // se true, rendimenti ricalibrati con CAPE live (blend 55/45)
+  capeAdj: true,         // se true: baseline + scostamento da CAPE/yield live (metodo delta coerente)
 };
 let stateB = { portfolio: 'eq50', ter: .20, pac: -1 };
 let decState = { portfolio: 'eq60', strategy: 'inflation', startPortfolio: 500000, withdrawal: 20000, years: 30, inflation: 2.0, ter: .20, ecoScenario: null, ecoTiming: 'early' };
@@ -3327,11 +3327,11 @@ function updateRetInfo() {
     }
 
     const btnLabel = isOn
-      ? `⚡ CAPE-adj <span style="font-size:10px;opacity:.7">(55% CAPE + 45% DMS)</span>`
-      : `📊 Storico puro <span style="font-size:10px;opacity:.7">(DMS 2024)</span>`;
+      ? `⚡ CAPE-adj <span style="font-size:10px;opacity:.7">(valutazioni live)</span>`
+      : `📊 Storico puro <span style="font-size:10px;opacity:.7">(baseline)</span>`;
     const btnTitle = isOn
-      ? 'Rendimenti ricalibrati con CAPE live. Clicca per usare solo dati storici DMS 2024.'
-      : 'Rendimenti storici puri DMS 2024 (non aggiustati per valutazioni). Clicca per attivare CAPE-adj.';
+      ? 'Rendimenti = baseline + scostamento dovuto alle valutazioni correnti (CAPE/yield), calcolato con metodo coerente col baseline. Clicca per disattivare.'
+      : 'Rendimenti baseline forward-looking (non aggiustati per le valutazioni di mercato correnti). Clicca per applicare lo scostamento da CAPE/yield live.';
 
     const parts = [];
     if (d.cape_sp500)    parts.push(`CAPE S&P ${d.cape_sp500.toFixed(1)}`);
