@@ -153,7 +153,7 @@ function initBacktest() {
       btState.w = state.w;
       document.getElementById('sBtPac').value = state.pac;
       document.getElementById('lBtPac').textContent = '€' + fmtN(state.pac) + '/m';
-      document.getElementById('sBtW').value = Math.min(state.w, 100000000);
+      document.getElementById('sBtW').value = Math.min(state.w, 5000000);
       document.getElementById('lBtW').textContent = fmt(state.w);
       // Sincronizza i campi numerici digitabili affiancati agli slider
       document.getElementById('sBtPac').dispatchEvent(new Event('input', { bubbles: true }));
