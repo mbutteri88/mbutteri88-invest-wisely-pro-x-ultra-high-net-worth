@@ -81,6 +81,21 @@
       indipendente (fee-only, iscritto all'Albo OCF — <a href="https://www.organismoconsulenti.org" target="_blank" rel="noopener" style="color:var(--blue)">organismoconsulenti.org</a>)
       o legato a intermediari (banche, reti, SIM), purché regolarmente abilitato dalla competente autorità.
     </div>
+    <div class="footer-disclaimer" style="margin-top:10px">
+      <strong>Fonte e natura dei dati storici</strong><br>
+      I dati storici 1970&ndash;2024 utilizzati nel backtesting e nelle simulazioni Monte Carlo sono
+      <strong>a scopo illustrativo</strong>. I rendimenti annuali sono <strong>ancorati alle serie ufficiali</strong>
+      delle tre asset class &mdash; azioni <strong>MSCI World</strong> (Net Total Return, EUR), obbligazioni
+      <strong>Bloomberg Euro Aggregate</strong> e oro (prezzo in EUR, LBMA) &mdash; e ne riproducono i valori
+      di lungo periodo (CAGR, volatilità) e l'andamento dei principali anni di crisi (1973&ndash;74, 1987,
+      2000&ndash;02, 2008, 2020, 2022). La <strong>granularità mensile</strong> dei singoli mesi è una
+      <strong>ricostruzione</strong> coerente con il rendimento annuo reale, non una serie tick-by-tick certificata.
+      I dati <strong>non sono distribuiti su licenza dai fornitori degli indici</strong> e non costituiscono
+      una riproduzione ufficiale degli stessi. Per analisi che richiedano dati certificati si rimanda alle
+      fonti primarie (<a href="https://www.msci.com" target="_blank" rel="noopener" style="color:var(--blue)">MSCI</a>,
+      Bloomberg, <a href="https://www.lbma.org.uk" target="_blank" rel="noopener" style="color:var(--blue)">LBMA</a>)
+      o a strumenti basati su dati su licenza (es. <a href="https://curvo.eu" target="_blank" rel="noopener" style="color:var(--blue)">Curvo.eu</a>).
+    </div>
     <div class="footer-links">
       <button onclick="showView('privacy')" class="footer-link-btn">🔒 Privacy Policy</button>
       <button onclick="showView('cookie')" class="footer-link-btn">🍪 Cookie Policy</button>
@@ -236,7 +251,7 @@
         <li><b>t di Student (ν=4, fat tail)</b> — distribuzioni a <i>code grasse</i>: crash del −20/−40% accadono 3–5× più spesso rispetto alla gaussiana. Curtosi elevata. <b>Raccomandato per la pianificazione conservativa.</b></li>
         <li><b>GARCH(1,1) — volatility clustering</b> — la volatilità non è costante ma si autoalimenta: un mese volatile tende a essere seguito da un altro volatile. I parametri α=0,09, β=0,90 sono calibrati su equity globale. Il fan chart si allarga e restringe nel tempo invece di essere monotonicamente crescente.</li>
         <li><b>Regime-Switching (Hamilton 1989)</b> — il mercato alterna stati latenti Bull (μ=+1,2%/m, σ=3,5%) e Bear (μ=−1,8%/m, σ=7%). La matrice di transizione P(Bull→Bull)=97%, P(Bear→Bull)=20% cattura la persistenza dei trend. I crash prolungati emergono naturalmente senza impostare il Sequence Risk manualmente.</li>
-        <li><b>Block Bootstrap — Dati Storici Reali (1970–2024)</b> — campiona blocchi di rendimenti mensili reali da 660 osservazioni storiche (MSCI World, Bloomberg US Agg, Gold spot LBMA, CPI USA da FRED). I blocchi di 12 mesi preservano l'autocorrelazione seriale (volatility clustering, momentum). Non assume nessuna distribuzione parametrica: i crash storici (1973, 1987, 2000, 2008, 2022) entrano direttamente nella simulazione con la loro frequenza reale. È il modello più accurato per portafogli con componente azionaria e oro.</li>
+        <li><b>Block Bootstrap — Dati Storici Reali (1970–2024)</b> — campiona blocchi di rendimenti mensili reali da 660 osservazioni storiche (MSCI World Net EUR, Bloomberg Euro Aggregate, oro LBMA in EUR; inflazione CPI USA da FRED). I blocchi di 12 mesi preservano l'autocorrelazione seriale (volatility clustering, momentum). Non assume nessuna distribuzione parametrica: i crash storici (1973, 1987, 2000, 2008, 2022) entrano direttamente nella simulazione con la loro frequenza reale. È il modello più accurato per portafogli con componente azionaria e oro.</li>
 
       </ul>
       <div class="guide-impact"><b>Come leggere i risultati:</b> confronta il P10 del Gaussiano con quello del Regime-Switching — la differenza mostra quanto la tua pianificazione dipende dall'assunzione di normalità. Il Regime-Switching e il t-Student producono code più pesanti perché modellano crash più frequenti e prolungati.</div>
@@ -432,7 +447,7 @@
       </ul>
       <h3>Parametri</h3>
       <ul>
-        <li><b>Obiettivo patrimoniale</b> — il target da raggiungere (da €10k a €3M).</li>
+        <li><b>Obiettivo patrimoniale</b> — il target da raggiungere (da €10k a €100M).</li>
         <li><b>Orizzonte temporale</b> — anni disponibili per l'accumulo.</li>
         <li><b>PAC mensile</b> — versamento mensile costante (usato nelle modalità "Anni necessari" e "Capitale raggiungibile").</li>
         <li><b>Patrimonio iniziale</b> — capitale già disponibile oggi.</li>
@@ -648,11 +663,11 @@
     <span id="blendedTaxBadge" style="margin-left:auto;font-size:10.5px;background:var(--purple-dim);color:var(--purple);border:1px solid rgba(147,52,230,.3);padding:3px 8px;border-radius:4px;font-family:'DM Mono',monospace">—</span>
   </div>
   <div class="grid-2">
-    <div class="pblock"><div class="plabel"><span>Patrimonio iniziale</span><span class="pval" id="lW">€0</span></div><input type="range" id="sW" min="0" max="100000000" step="10000" value="0"><div class="range-hints"><span>€0</span><span>€100M</span></div></div>
-    <div class="pblock"><div class="plabel"><span>PAC mensile (base)</span><span class="pval" id="lP">€0/m</span></div><input type="range" id="sP" min="0" max="100000" step="100" value="0"><div class="range-hints"><span>€0</span><span>€100.000</span></div></div>
+    <div class="pblock"><div class="plabel"><span>Patrimonio iniziale</span><span class="pval" id="lW">€0</span></div><input type="range" id="sW" min="0" max="100000000" step="1000" value="0"><div class="range-hints"><span>€0</span><span>€100M</span></div></div>
+    <div class="pblock"><div class="plabel"><span>PAC mensile (base)</span><span class="pval" id="lP">€0/m</span></div><input type="range" id="sP" min="0" max="100000" step="50" value="0"><div class="range-hints"><span>€0</span><span>€100.000</span></div></div>
     <div class="pblock"><div class="plabel"><span>Età iniziale</span><span class="pval" id="lA">0 anni</span></div><input type="range" id="sA" min="0" max="80" step="1" value="0"><div class="range-hints"><span>0</span><span>80</span></div></div>
     <div class="pblock"><div class="plabel"><span>Orizzonte temporale</span><span class="pval" id="lY">35 anni</span></div><input type="range" id="sY" min="1" max="50" step="1" value="35"><div class="range-hints"><span>1 anno</span><span>50 anni</span></div></div>
-    <div class="pblock"><div class="plabel"><span class="opt-tooltip-wrap">💎 Soglia Optionality <span class="opt-tooltip-icon" tabindex="0">?<span class="opt-tooltip-bubble"><strong style="color:var(--blue)">Cos'è la Soglia di Optionality?</strong><br>Livello patrimoniale a cui il portafoglio ti dà <em>opzioni di vita reali</em> — part-time, sabbatico, cambio carriera — prima della libertà finanziaria totale (FIRE). Distinta dal FIRE (100% copertura): questa è il punto di <strong>"abbastanza per avere scelta"</strong>. Il grafico mostra la linea tratteggiata per vedere quando ogni scenario la raggiunge.</span></span></span><span class="pval" id="lO">€450.000</span></div><input type="range" id="sO" min="50000" max="3000000" step="25000" value="450000"><div class="range-hints"><span>€50k</span><span>€3M</span></div></div>
+    <div class="pblock"><div class="plabel"><span class="opt-tooltip-wrap">💎 Soglia Optionality <span class="opt-tooltip-icon" tabindex="0">?<span class="opt-tooltip-bubble"><strong style="color:var(--blue)">Cos'è la Soglia di Optionality?</strong><br>Livello patrimoniale a cui il portafoglio ti dà <em>opzioni di vita reali</em> — part-time, sabbatico, cambio carriera — prima della libertà finanziaria totale (FIRE). Distinta dal FIRE (100% copertura): questa è il punto di <strong>"abbastanza per avere scelta"</strong>. Il grafico mostra la linea tratteggiata per vedere quando ogni scenario la raggiunge.</span></span></span><span class="pval" id="lO">€450.000</span></div><input type="range" id="sO" min="50000" max="100000000" step="25000" value="450000"><div class="range-hints"><span>€50k</span><span>€100M</span></div></div>
     <div class="pblock"><div class="plabel"><span>TER ETF <span class="ter-badge">💸 costo fondo</span></span><span class="pval" id="lTer">0.20%</span></div><input type="range" id="sTer" min="0" max="2.0" step="0.05" value="0.20"><div class="range-hints"><span>0%</span><span>2.0%</span></div></div>
     <div class="pblock"><div class="plabel"><span>Tasse Azionario</span><span class="pval" id="lTeq">26.0%</span></div><input type="range" id="sTeq" min="0" max="40" step="0.5" value="26.0"><div class="range-hints"><span>0%</span><span>40%</span></div></div>
     <div class="pblock"><div class="plabel"><span>Tasse Obbligaz. (Gov.)</span><span class="pval" id="lTob">12.5%</span></div><input type="range" id="sTob" min="0" max="40" step="0.5" value="12.5"><div class="range-hints"><span>0%</span><span>40%</span></div></div>
@@ -1036,7 +1051,7 @@
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
         <div class="pblock"><div class="plabel"><span>TER B</span><span class="pval" style="background:var(--purple-dim);color:var(--purple);border:1px solid rgba(147,52,230,.3)" id="lAbTer">0.20%</span></div><input type="range" id="sAbTer" min="0" max="2.0" step="0.05" value="0.20" oninput="stateB.ter=+this.value;document.getElementById('lAbTer').textContent=this.value+'%';renderAB()"></div>
-        <div class="pblock"><div class="plabel"><span>PAC B</span><span class="pval" style="background:var(--purple-dim);color:var(--purple);border:1px solid rgba(147,52,230,.3)" id="lAbPac">= A</span></div><input type="range" id="sAbPac" min="-1" max="100000" step="100" value="-1" oninput="stateB.pac=+this.value;document.getElementById('lAbPac').textContent=this.value<0?'= A':'€'+Math.round(this.value)+'/m';renderAB()"><div class="range-hints"><span>= A</span><span>€100.000</span></div></div>
+        <div class="pblock"><div class="plabel"><span>PAC B</span><span class="pval" style="background:var(--purple-dim);color:var(--purple);border:1px solid rgba(147,52,230,.3)" id="lAbPac">= A</span></div><input type="range" id="sAbPac" min="-1" max="100000" step="50" value="-1" oninput="stateB.pac=+this.value;document.getElementById('lAbPac').textContent=this.value<0?'= A':'€'+Math.round(this.value)+'/m';renderAB()"><div class="range-hints"><span>= A</span><span>€100.000</span></div></div>
       </div>
     </div>
   </div>
@@ -1082,7 +1097,7 @@
     <span id="importStatus" style="font-size:12px;color:var(--text3)">Usa parametri manuali oppure importa il valore finale simulato</span>
   </div>
   <div class="grid-2" style="margin-bottom:16px">
-    <div class="pblock"><div class="plabel"><span>Patrimonio iniziale decumulo</span><span class="pval" id="lDecStart">€500.000</span></div><input type="range" id="sDecStart" min="0" max="100000000" step="50000" value="500000"><div class="range-hints"><span>€0</span><span>€100M</span></div></div>
+    <div class="pblock"><div class="plabel"><span>Patrimonio iniziale decumulo</span><span class="pval" id="lDecStart">€500.000</span></div><input type="range" id="sDecStart" min="0" max="100000000" step="10000" value="500000"><div class="range-hints"><span>€0</span><span>€100M</span></div></div>
     <div class="pblock"><div class="plabel"><span>Prelievo annuo iniziale</span><span class="pval" id="lDecW">€20.000/a</span></div><input type="range" id="sDecW" min="0" max="5000000" step="1000" value="20000"><div class="range-hints"><span>€0</span><span>€5M/anno</span></div></div>
     <div class="pblock"><div class="plabel"><span>Anni di decumulo</span><span class="pval" id="lDecY">30 anni</span></div><input type="range" id="sDecY" min="5" max="50" step="1" value="30"><div class="range-hints"><span>5</span><span>50 anni</span></div></div>
     <div class="pblock"><div class="plabel"><span>TER in decumulo</span><span class="pval" id="lDecTer">0.20%</span></div><input type="range" id="sDecTer" min="0" max="2.0" step="0.05" value="0.20"><div class="range-hints"><span>0%</span><span>2.0%</span></div></div>
@@ -1282,7 +1297,7 @@
         </div>
         <div class="pblock">
           <div class="plabel"><span>Capitale iniziale</span><span class="pval" id="lBtW">€10.000</span></div>
-          <input type="range" id="sBtW" min="0" max="100000000" step="50000" value="10000" oninput="btState.w=+this.value;document.getElementById('lBtW').textContent=fmt(+this.value)">
+          <input type="range" id="sBtW" min="0" max="100000000" step="5000" value="10000" oninput="btState.w=+this.value;document.getElementById('lBtW').textContent=fmt(+this.value)">
         </div>
       </div>
     </div>
@@ -1445,7 +1460,7 @@
     <div class="grid-2" style="margin-bottom:14px">
       <div class="pblock">
         <div class="plabel"><span>Importo vendita (€)</span><span class="pval" id="lFiscSell">€50.000</span></div>
-        <input type="range" id="sFiscSell" min="0" max="1000000" step="5000" value="50000" oninput="fiscState.sellAmount=+this.value;document.getElementById('lFiscSell').textContent=fmt(+this.value);renderFiscale()">
+        <input type="range" id="sFiscSell" min="0" max="20000000" step="5000" value="50000" oninput="fiscState.sellAmount=+this.value;document.getElementById('lFiscSell').textContent=fmt(+this.value);renderFiscale()">
       </div>
       <div class="pblock">
         <div class="plabel"><span>Anno di vendita</span><span class="pval" id="lFiscSellY">10°</span></div>
@@ -1470,6 +1485,7 @@
 </div>
 </div><!-- /tab-fiscale -->
 
+<!-- ══════════════════════════════════════════════════════ TAB: PIANO PENSIONE -->
 <!-- ══════════════════════════════════════════════════════ TAB 9: STRESS VALUTAZIONI -->
 <div class="tab-content" id="tab-valuation">
 <div class="sec">
@@ -1556,13 +1572,13 @@
     <!-- Target capitale -->
     <div class="pblock" id="goalTargetBlock">
       <div class="plabel"><span>🎯 Obiettivo patrimoniale</span><span class="pval" id="lGoalTarget">€500k</span></div>
-      <input type="range" id="sGoalTarget" min="10000" max="100000000" step="50000" value="500000">
+      <input type="range" id="sGoalTarget" min="10000" max="100000000" step="10000" value="500000">
       <div class="range-hints"><span>€10k</span><span>€100M</span></div>
     </div>
     <!-- PAC mensile -->
     <div class="pblock" id="goalPACBlock" style="display:none">
       <div class="plabel"><span>💳 PAC mensile</span><span class="pval" id="lGoalPAC">€500/m</span></div>
-      <input type="range" id="sGoalPAC" min="0" max="100000" step="100" value="500">
+      <input type="range" id="sGoalPAC" min="0" max="100000" step="50" value="500">
       <div class="range-hints"><span>€0</span><span>€100.000</span></div>
     </div>
     <!-- Anni -->
@@ -1574,7 +1590,7 @@
     <!-- Capitale iniziale -->
     <div class="pblock">
       <div class="plabel"><span>🏦 Patrimonio iniziale</span><span class="pval" id="lGoalW0">€0</span></div>
-      <input type="range" id="sGoalW0" min="0" max="100000000" step="10000" value="0">
+      <input type="range" id="sGoalW0" min="0" max="5000000" step="1000" value="0">
       <div class="range-hints"><span>€0</span><span>€100M</span></div>
     </div>
     <!-- TER -->
