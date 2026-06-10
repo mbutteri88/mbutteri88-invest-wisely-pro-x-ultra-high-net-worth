@@ -2980,7 +2980,7 @@ function renderDecumulo() {
 function importFromSim() {
   const dN = project('normal', false);
   decState.startPortfolio = dN[state.years].value;
-  document.getElementById('sDecStart').value = Math.min(decState.startPortfolio, 5000000);
+  document.getElementById('sDecStart').value = Math.min(decState.startPortfolio, 100000000);
   document.getElementById('lDecStart').textContent = fmt(decState.startPortfolio);
   document.getElementById('sDecStart').dispatchEvent(new Event('input', { bubbles: true }));
   document.getElementById('importStatus').textContent = `Importato: ${fmtFull(decState.startPortfolio)} (scenario base, età ${state.age + state.years} anni)`;
